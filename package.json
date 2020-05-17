@@ -1,0 +1,11 @@
+{
+  "name": "generic-comment-parser",
+  "version": "1.0.0",
+  "description": "A utility for parsing doc comment-style comments",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "author": "Ilya Meerovich",
+  "license": "ISC"
+}
