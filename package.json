@@ -4,8 +4,14 @@
   "description": "A utility for parsing doc comment-style comments",
   "main": "dist/index.js",
   "scripts": {
+    "start": "tsc",
     "test": "npm run test"
   },
   "author": "Ilya Meerovich",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^14.0.1",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.2"
+  }
 }
