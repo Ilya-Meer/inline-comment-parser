@@ -1,4 +1,5 @@
-import { ParserTransformation } from '../interfaces';
+import { ParserTransformation, ParserState, ParserResult } from '../interfaces';
+import { updateParserResult } from '../utils';
 
 /**
  * Base class for creating parsers
@@ -11,7 +12,7 @@ export class Parser {
     this.stateTransformer = stateTransformer;
   }
 
-  public run(target: string) {
+  public run(target: string): ParserState {
     const initialState = {
       target,
       index: 0,
@@ -21,5 +22,12 @@ export class Parser {
     };
 
     return this.stateTransformer(initialState);
+  }
+
+  public map(fn: (stateResult: ParserResult) => ParserResult) {
+    return new Parser((parserState: ParserState) => {
+      const nextState = this.stateTransformer(parserState);
+      return updateParserResult(nextState, fn(nextState.result));
+    });
   }
 }
