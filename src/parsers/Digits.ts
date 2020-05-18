@@ -7,29 +7,35 @@ const digitsRegex = /^[0-9]+/;
 /**
  * Parser for parsing digits
  */
-export const digits = new Parser((parserState: ParserState) => {
-  const { target, index, isError } = parserState;
+export const digits = new Parser(
+  (parserState: ParserState): ParserState => {
+    const { target, index, isError } = parserState;
 
-  // Return error if passed-in state contains uncaught error
-  if (isError) {
-    return updateParserError(parserState, parserState.error!);
-  }
+    // Return error if passed-in state contains uncaught error
+    if (isError) {
+      return updateParserError(parserState, parserState.error!);
+    }
 
-  // Get input up to currently parsed index
-  const targetString = target.slice(index);
+    // Get input up to currently parsed index
+    const targetString = target.slice(index);
 
-  if (!targetString.length) {
-    return updateParserError(parserState, errors.genericEndOfInput('digits'));
-  }
+    if (!targetString.length) {
+      return updateParserError(parserState, errors.genericEndOfInput('digits'));
+    }
 
-  const matched = targetString.match(digitsRegex);
+    const matched = targetString.match(digitsRegex);
 
-  if (!matched) {
-    return updateParserError(
+    if (!matched) {
+      return updateParserError(
+        parserState,
+        errors.genericParsingError('digits', index)
+      );
+    }
+
+    return updateParserState(
       parserState,
-      errors.genericParsingError('digits', index)
+      index + matched[0].length,
+      matched[0]
     );
   }
-
-  return updateParserState(parserState, index + matched[0].length, matched[0]);
-});
+);

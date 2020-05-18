@@ -9,26 +9,28 @@ import { ParserState } from '../interfaces';
  * @returns function to take input and pass to parser sequence
  */
 export const sequenceOf = (parsers: Parser[]) =>
-  new Parser((parserState: ParserState) => {
-    // Stop parsing if passed a state containing error
-    if (parserState.isError) {
-      return parserState;
-    }
-
-    const results = [];
-    let nextState = parserState;
-    // Apply each parser in array to target input
-    for (let p of parsers) {
-      nextState = p.stateTransformer(nextState);
-
-      if (nextState.isError) {
-        return nextState;
+  new Parser(
+    (parserState: ParserState): ParserState => {
+      // Stop parsing if passed a state containing error
+      if (parserState.isError) {
+        return parserState;
       }
 
-      if (nextState.result) {
-        results.push(nextState.result);
-      }
-    }
+      const results = [];
+      let nextState = parserState;
+      // Apply each parser in array to target input
+      for (let p of parsers) {
+        nextState = p.stateTransformer(nextState);
 
-    return updateParserResult(nextState, results);
-  });
+        if (nextState.isError) {
+          return nextState;
+        }
+
+        if (nextState.result) {
+          results.push(nextState.result);
+        }
+      }
+
+      return updateParserResult(nextState, results);
+    }
+  );

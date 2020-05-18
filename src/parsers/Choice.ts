@@ -9,23 +9,25 @@ import { ParserState } from '../interfaces';
  * @returns function to take input and pass to parser sequence
  */
 export const choice = (parsers: Parser[]) =>
-  new Parser((parserState: ParserState) => {
-    // Stop parsing if passed a state containing error
-    if (parserState.isError) {
-      return parserState;
-    }
-
-    // Apply each parser in array to target input until one succeeds
-    for (let p of parsers) {
-      const nextState = p.stateTransformer(parserState);
-
-      if (!nextState.isError) {
-        return nextState;
+  new Parser(
+    (parserState: ParserState): ParserState => {
+      // Stop parsing if passed a state containing error
+      if (parserState.isError) {
+        return parserState;
       }
-    }
 
-    return updateParserError(
-      parserState,
-      errors.choiceParsingError(parserState.index)
-    );
-  });
+      // Apply each parser in array to target input until one succeeds
+      for (let p of parsers) {
+        const nextState = p.stateTransformer(parserState);
+
+        if (!nextState.isError) {
+          return nextState;
+        }
+      }
+
+      return updateParserError(
+        parserState,
+        errors.choiceParsingError(parserState.index)
+      );
+    }
+  );
