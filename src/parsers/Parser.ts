@@ -12,6 +12,7 @@ export class Parser {
     this.stateTransformer = stateTransformer;
   }
 
+  // Apply parser to target string
   public run(target: string): ParserState {
     const initialState = {
       target,
@@ -24,6 +25,7 @@ export class Parser {
     return this.stateTransformer(initialState);
   }
 
+  // Apply passed in function to result of previous parser
   public map(fn: (stateResult: any) => any) {
     return new Parser((parserState: ParserState) => {
       const nextState = this.stateTransformer(parserState);
@@ -36,6 +38,7 @@ export class Parser {
     });
   }
 
+  // Apply passed in function to error of previous parser
   public errorMap(fn: (error: string, index: number) => any) {
     return new Parser((parserState: ParserState) => {
       const nextState = this.stateTransformer(parserState);
@@ -48,6 +51,21 @@ export class Parser {
         nextState,
         fn(nextState.error!, nextState.index)
       );
+    });
+  }
+
+  // Generate next parser depending on state of previous parser
+  public chain(fn: (stateResult: any) => Parser) {
+    return new Parser((parserState: ParserState) => {
+      const nextState = this.stateTransformer(parserState);
+
+      if (nextState.isError) {
+        return nextState;
+      }
+
+      const nextParser = fn(nextState.result);
+
+      return nextParser.stateTransformer(nextState);
     });
   }
 }
