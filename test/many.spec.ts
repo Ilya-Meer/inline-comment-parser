@@ -1,7 +1,3 @@
-/**
- * Start testing Many Parser Here
- */
-
 import { choice } from '../src/parsers/Choice';
 import { str } from '../src/parsers/Str';
 import { digits } from '../src/parsers/Digits';

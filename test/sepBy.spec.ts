@@ -1,7 +1,3 @@
-/**
- * Start testing Many Parser Here
- */
-
 import { choice } from '../src/parsers/Choice';
 import { between } from '../src/parsers/Between';
 import { str } from '../src/parsers/Str';
@@ -9,8 +5,6 @@ import { letters } from '../src/parsers/Letters';
 import { digits } from '../src/parsers/Digits';
 import { sepBy } from '../src/parsers/SepBy';
 import { lazy } from '../src/utils';
-import { whitespace } from '../src/parsers/Whitespace';
-import { sequenceOf } from '../src/parsers/SequenceOf';
 
 describe('SepBy Parser', () => {
   it('parses input correctly', () => {
