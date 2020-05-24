@@ -1,4 +1,5 @@
 import { ParserState, ParserResult } from './interfaces';
+import { Parser } from './parsers/Parser';
 
 export const updateParserState = (
   state: ParserState,
@@ -36,3 +37,11 @@ export const errors = {
   choiceParsingError: (index: number) =>
     `choice: unable to match with any parser at index ${index}`,
 };
+
+export const lazy = (parserThunk: () => Parser): Parser =>
+  new Parser((parserState: ParserState) => {
+    const parser = parserThunk();
+    const nextState = parser.stateTransformer(parserState);
+
+    return nextState;
+  });
