@@ -6,7 +6,9 @@ Parse inline comments in array of files.
 
 Install with npm
 
-`npm install inline-comment-parser`
+```
+npm install inline-comment-parser
+```
 
 ## Usage
 
@@ -79,7 +81,7 @@ const square = (num) => num * num
 // script.js
 const { parseFiles } = require('inline-comment-parser');
 
-const pattern = 'path/to/utils/*.ts';
+const pattern = 'path/to/src/utils/*.js';
 
 const parsed = parseFiles(pattern, '///');
 //  {
@@ -107,7 +109,7 @@ const commentString = `
 class TestClass
 `;
 
-parseComment(commentString, null);
+parseComment(commentString, '// TODO:');
 //  {
 //    content: 'Refactor this class to parse more widgets.',
 //    source: {
