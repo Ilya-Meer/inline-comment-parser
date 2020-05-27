@@ -67,6 +67,22 @@ describe('Base Parser Class', () => {
     });
   });
 
+  it('returns an error if transform function is applied to an erroneous state', () => {
+    const errorState = {
+      target: 'target',
+      index: 2,
+      result: null,
+      isError: true,
+      error: 'some error',
+    };
+
+    const parser = str('hello');
+
+    const parsed = parser.stateTransformer(errorState);
+
+    expect(parsed).toEqual(errorState);
+  });
+
   it('returns new parser depending on previous parser if a chain function is specified', () => {
     let parser = letters.chain((res) => {
       if (res[0] === 'a') {

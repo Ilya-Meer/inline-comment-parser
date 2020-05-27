@@ -1,5 +1,5 @@
 import { ParserTransformation, ParserState } from '../interfaces';
-import { updateParserResult, updateParserError } from '../utils';
+import { updateParserResult, updateParserError } from '../utils/utils';
 
 /**
  * Base class for creating parsers
@@ -35,6 +35,18 @@ export class Parser {
       }
 
       return updateParserResult(nextState, fn(nextState.result));
+    });
+  }
+
+  public discard() {
+    return new Parser((parserState: ParserState) => {
+      const nextState = this.stateTransformer(parserState);
+
+      if (nextState.isError) {
+        return nextState;
+      }
+
+      return updateParserResult(nextState, undefined);
     });
   }
 
