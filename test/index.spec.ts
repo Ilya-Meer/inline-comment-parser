@@ -4,17 +4,29 @@ import { parseFiles, parseComment } from '../src/index';
 describe('Comment Parser', () => {
   describe('Comment string parsing functionality', () => {
     it('parses a comment string properly', () => {
-      const commentString = `
+      let commentString = `
       /// Here is a comment one one line followed
       /// by a second line and
       /// then by a third!
       `;
 
-      const parsed = parseComment(commentString);
+      let parsed = parseComment(commentString);
 
       expect(parsed).toEqual({
         content:
           'Here is a comment one one line followed by a second line and then by a third!',
+        source: { lineNumber: 2 },
+      });
+
+      commentString = `
+      /// Here is a comment one one line
+      someFunc()
+      `;
+
+      parsed = parseComment(commentString);
+
+      expect(parsed).toEqual({
+        content: 'Here is a comment one one line',
         source: { lineNumber: 2 },
       });
     });

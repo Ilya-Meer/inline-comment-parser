@@ -93,7 +93,7 @@ describe('Identifier Parsers', () => {
 
       expect(parsed).toEqual({
         target: 'someMethod() {',
-        index: 13,
+        index: 14,
         result: {
           type: 'method',
           name: 'someMethod',
@@ -108,12 +108,26 @@ describe('Identifier Parsers', () => {
 
       expect(parsed).toEqual({
         target: 'constructor(someArg) {',
-        index: 21,
+        index: 22,
         result: {
           type: 'constructor',
         },
         isError: false,
         error: null,
+      });
+    });
+
+    it('does not parse a regular function call', () => {
+      const commentString = `someMethod()`;
+
+      const parsed = methodDeclaration.run(commentString);
+
+      expect(parsed).toEqual({
+        target: 'someMethod()',
+        index: 12,
+        result: undefined,
+        isError: true,
+        error: "str: Tried to match '{' but got unexepected end of input",
       });
     });
   });

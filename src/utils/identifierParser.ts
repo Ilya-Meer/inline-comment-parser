@@ -77,12 +77,16 @@ export const methodDeclaration = sequenceOf([
   identifierName,
   between(str('('), str(')'))(identifierName),
   many(whitespace).discard(),
+  str('{'),
 ]).map((result) => {
   if (result[0] === 'constructor') {
     return {
       type: 'constructor',
     };
   }
+
+  if (result[result.length - 1] !== '{') return;
+
   return {
     type: 'method',
     name: result[0],
