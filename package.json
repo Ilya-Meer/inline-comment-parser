@@ -1,14 +1,28 @@
 {
-  "name": "generic-comment-parser",
+  "name": "inline-comment-parser",
   "version": "1.0.0",
-  "description": "A utility for parsing doc comment-style comments",
-  "main": "dist/index.js",
-  "scripts": {
-    "start": "tsc",
-    "test": "jest"
+  "description": "A utility for parsing inline comments",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ilya-Meer/inline-comment-parser.git"
   },
   "author": "Ilya Meerovich",
-  "license": "ISC",
+  "keywords": [
+    "node",
+    "comment",
+    "parser"
+  ],
+  "main": "dist/index.js",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "dist/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "license": "MIT",
   "devDependencies": {
     "@types/glob": "^7.1.1",
     "@types/jest": "^25.2.2",
