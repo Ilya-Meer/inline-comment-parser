@@ -92,7 +92,7 @@ describe('Comment Parser', () => {
   });
 
   describe('File array parsing functionality', () => {
-    it('parses an array of files properly', () => {
+    it('parses an array of files and returns comments where found', () => {
       const pattern = path.join(__dirname, './fixtures/*.js');
 
       const parsed = parseFiles(pattern);

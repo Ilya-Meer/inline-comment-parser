@@ -4,18 +4,11 @@ import { getIdentifierInfo, processFile } from './utils/commentParsingUtils';
 import { EnhancedComment, ParsedComment } from './interfaces';
 
 /**
- * Parse a comment string and extract content of comments
- * as well as information about identifier described by comment
- * if such an identifier exists
- * @param commentString Comment string to parse
- * @param delimiter Delimiter to mark a string as a comment
- * @returns Object with file name and array of parsed comments
- */
-
-/**
  * @param pattern Glob pattern to generate paths
  * for files to parse
  * @param delimiter Delimiter to mark a string as a comment
+ * @returns Array of objects with file name and array of parsed comments
+ * if any comments were found in file
  */
 export const parseFiles = (
   pattern: string,
@@ -64,7 +57,9 @@ export const parseFiles = (
       comments: withIdentifierInfo,
     };
 
-    parsed.push(parsedCommentObject);
+    if (parsedCommentObject.comments.length > 0) {
+      parsed.push(parsedCommentObject);
+    }
   }
 
   return parsed;
