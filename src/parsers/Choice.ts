@@ -1,4 +1,4 @@
-import { updateParserError, errors } from '../utils';
+import { updateParserError, errors } from '../utils/utils';
 import { Parser } from './Parser';
 import { ParserState } from '../interfaces';
 

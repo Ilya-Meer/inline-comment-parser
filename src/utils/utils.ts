@@ -1,10 +1,10 @@
-import { ParserState, ParserResult } from './interfaces';
-import { Parser } from './parsers/Parser';
+import { ParserState } from '../interfaces';
+import { Parser } from '../parsers/Parser';
 
 export const updateParserState = (
   state: ParserState,
   index: number,
-  result: ParserResult
+  result: any
 ) => ({
   ...state,
   index,

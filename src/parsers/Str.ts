@@ -1,6 +1,6 @@
 import { Parser } from './Parser';
 import { ParserState } from '../interfaces';
-import { updateParserError, errors, updateParserState } from '../utils';
+import { updateParserError, errors, updateParserState } from '../utils/utils';
 
 /**
  * Parser for parsing strings

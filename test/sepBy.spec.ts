@@ -4,7 +4,7 @@ import { str } from '../src/parsers/Str';
 import { letters } from '../src/parsers/Letters';
 import { digits } from '../src/parsers/Digits';
 import { sepBy } from '../src/parsers/SepBy';
-import { lazy } from '../src/utils';
+import { lazy } from '../src/utils/utils';
 
 describe('SepBy Parser', () => {
   it('parses input correctly', () => {
